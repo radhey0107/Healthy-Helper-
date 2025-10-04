@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Healthy Helper — Healthcare Awareness</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --accent:#2a9df4;  /* professional healthcare blue */
+      --bg:#f4f9fc;
+      --card:#ffffff;
+      --text:#033f5d;
+    }
+    body{font-family:"Segoe UI",Arial,sans-serif;margin:0;background:var(--bg);color:var(--text);}
+    header{background:var(--accent);color:#fff;padding:25px;text-align:center;}
+    header h1{margin:0;font-size:28px;}
+    nav{display:flex;flex-wrap:wrap;justify-content:center;background:#d6eef9;padding:10px;gap:8px;}
+    nav button{border:none;padding:10px 14px;border-radius:6px;background:#fff;color:var(--accent);font-weight:bold;cursor:pointer;}
+    nav button.active{background:var(--accent);color:#fff;}
+    .page{display:none;padding:20px;}
+    .card{background:var(--card);padding:18px;border-radius:10px;box-shadow:0 3px 8px rgba(0,0,0,0.08);margin-bottom:16px;}
+    h2{margin-top:0;color:var(--accent);}
+    h3{color:#1c6db3;}
+    .chip{display:inline-block;padding:6px 10px;margin:5px;border:1px solid #ccc;border-radius:20px;cursor:pointer;}
+    .chip.sel{background:var(--accent);color:#fff;}
+    input,select,textarea,button{padding:10px;margin:6px 0;border-radius:6px;border:1px solid #ccc;font-size:15px;}
+    textarea{width:100%;}
+    button.primary{background:var(--accent);color:#fff;border:none;cursor:pointer;}
+    button.danger{background:#c62828;color:#fff;border:none;}
+    .result{margin-top:10px;padding:10px;border-radius:6px;background:#f0f9ff;border:1px solid #b3e0ff;}
+    table{width:100%;border-collapse:collapse;margin-top:8px;}
+    th,td{border:1px solid #ddd;padding:6px;text-align:left;font-size:14px;}
+    th{background:#f8faff;}
+    footer{background:#033f5d;color:#fff;text-align:center;padding:18px;margin-top:20px;font-size:14px;}
+    a{color:var(--accent);}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Healthy Helper</h1>
+    <p>Your trusted partner in healthcare awareness & prevention</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <button data-page="home" class="active">Home</button>
+    <button data-page="diseases">Diseases</button>
+    <button data-page="prevent">Prevention</button>
+    <button data-page="symptom">Symptom Checker</button>
+    <button data-page="bmi">BMI Calculator</button>
+    <button data-page="survey">Survey</button>
+    <button data-page="govt">Govt Schemes</button>
+  </nav>
+
+  <!-- Home -->
+  <section id="page-home" class="page" style="display:block;">
+    <div class="card">
+      <h2>Welcome to Healthy Helper</h2>
+      <p>Healthy Helper provides awareness about chronic diseases, prevention strategies, and information about government healthcare schemes. Use our Symptom Checker, BMI Calculator, and Health Survey to stay informed.</p>
+    </div>
+  </section>
+
+  <!-- Diseases -->
+  <section id="page-diseases" class="page">
+    <div class="card">
+      <h2>Major Chronic Diseases</h2>
+      <h3>Diabetes</h3>
+      <p><b>Causes:</b> Insulin resistance, obesity, poor diet, genetics.</p>
+      <p><b>Symptoms:</b> Frequent urination, thirst, blurred vision.</p>
+      <p><b>Prevention:</b> Healthy diet, regular exercise, weight control, blood sugar checks.</p>
+
+      <h3>Hypertension</h3>
+      <p><b>Causes:</b> High salt intake, stress, obesity, genetics.</p>
+      <p><b>Symptoms:</b> Usually silent, sometimes headache or dizziness.</p>
+      <p><b>Prevention:</b> Reduce salt, exercise, avoid smoking, regular BP monitoring.</p>
+
+      <h3>Heart Disease</h3>
+      <p><b>Causes:</b> High cholesterol, hypertension, smoking, diabetes.</p>
+      <p><b>Symptoms:</b> Chest pain, breathlessness, fatigue.</p>
+      <p><b>Prevention:</b> Healthy lifestyle, no tobacco, stress management, checkups.</p>
+
+      <h3>COPD</h3>
+      <p><b>Causes:</b> Smoking, pollution, occupational exposure.</p>
+      <p><b>Symptoms:</b> Chronic cough, breathlessness, chest tightness.</p>
+      <p><b>Prevention:</b> Quit smoking, avoid polluted air, lung health checkups.</p>
+
+      <h3>CKD</h3>
+      <p><b>Causes:</b> Diabetes, hypertension, infections, genetics.</p>
+      <p><b>Symptoms:</b> Fatigue, swelling in feet, frequent urination at night.</p>
+      <p><b>Prevention:</b> Control diabetes/BP, avoid excess painkillers, kidney tests.</p>
+    </div>
+  </section>
+
+  <!-- Prevention -->
+  <section id="page-prevent" class="page">
+    <div class="card">
+      <h2>Preventive Measures</h2>
+      <ul>
+        <li>Eat balanced meals with more vegetables and less processed foods.</li>
+        <li>Exercise at least 30 minutes daily.</li>
+        <li>Avoid smoking and limit alcohol intake.</li>
+        <li>Manage stress with yoga, meditation, or hobbies.</li>
+        <li>Get regular checkups: BP, sugar, cholesterol, kidney function.</li>
+        <li>Take vaccines and treat infections early.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Symptom Checker -->
+  <section id="page-symptom" class="page">
+    <div class="card">
+      <h2>Symptom Checker</h2>
+      <p>Select the symptoms you have:</p>
+      <div id="symptomsList"></div>
+      <button id="checkSymptoms" class="primary">Check</button>
+      <button id="clearSymptoms" class="danger">Clear</button>
+      <div id="symResult" class="result" style="display:none;"></div>
+    </div>
+  </section>
+
+  <!-- BMI -->
+  <section id="page-bmi" class="page">
+    <div class="card">
+      <h2>BMI Calculator</h2>
+      <label>Height (cm):</label><br>
+      <input type="number" id="height" placeholder="e.g. 170"><br>
+      <label>Weight (kg):</label><br>
+      <input type="number" id="weight" placeholder="e.g. 70"><br>
+      <button id="calcBmi" class="primary">Calculate</button>
+      <button id="clearBmi" class="danger">Clear</button>
+      <div id="bmiResult" class="result" style="display:none;"></div>
+    </div>
+  </section>
+
+  <!-- Survey -->
+  <section id="page-survey" class="page">
+    <div class="card">
+      <h2>Health Survey</h2>
+      <p>All responses are stored locally in your browser. Exportable to CSV.</p>
+      <label><input type="checkbox" id="consent"> I consent to participate</label><br>
+      <label>Name</label><input type="text" id="name">
+      <label>Age Group</label>
+      <select id="age"><option value="">Select</option><option>&lt;18</option><option>18-30</option><option>31-45</option><option>46-60</option><option>&gt;60</option></select>
+      <label>Gender</label>
+      <select id="gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
+      <label>Do you have any diagnosed chronic disease?</label>
+      <select id="disease"><option value="">Select</option><option>None</option><option>Diabetes</option><option>Hypertension</option><option>Heart Disease</option><option>CKD</option><option>COPD</option></select>
+      <label>Do you have health insurance?</label>
+      <select id="insurance"><option value="">Select</option><option>Yes - Govt</option><option>Yes - Private</option><option>No</option></select>
+      <label>Are you aware of government schemes?</label>
+      <select id="aware"><option value="">Select</option><option>Yes</option><option>No</option><option>Not Sure</option></select>
+      <label>Any additional comments</label><textarea id="comments"></textarea><br>
+      <button id="submitSurvey" class="primary">Submit</button>
+      <button id="viewSurvey">View Responses</button>
+      <button id="exportCsv">Export CSV</button>
+      <button id="clearForm" class="danger">Clear Form</button>
+      <div id="surveyMsg" class="result" style="display:none;"></div>
+    </div>
+  </section>
+
+  <!-- Govt Schemes -->
+  <section id="page-govt" class="page">
+    <div class="card">
+      <h2>Government Schemes</h2>
+      <ul>
+        <li><b>Ayushman Bharat (PMJAY):</b> Free health coverage up to ₹5 lakh per family/year. <a href="https://pmjay.gov.in" target="_blank">Visit</a></li>
+        <li><b>Jan Aushadhi Yojana:</b> Affordable medicines. <a href="https://janaushadhi.gov.in/" target="_blank">Check</a></li>
+        <li><b>ABHA Digital Health ID:</b> Create health ID for unified records. <a href="https://healthid.ndhm.gov.in/" target="_blank">Register</a></li>
+        <li><b>E-Sanjeevani:</b> Free telemedicine consultations. <a href="https://esanjeevani.in/" target="_blank">Use</a></li>
+        <li><b>NPCDCS:</b> National programme for NCD prevention. <a href="https://nhm.gov.in/" target="_blank">Learn more</a></li>
+        <li><b>RSBY:</b> Insurance scheme for BPL families. <a href="https://labour.gov.in/rsby" target="_blank">Know More</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Healthy Helper © 2025 | Awareness & Prevention Platform | Not a substitute for medical advice
+  </footer>
+
+  <script>
+    // NAVIGATION
+    document.querySelectorAll("nav button").forEach(btn=>{
+      btn.addEventListener("click",()=>{
+        document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+        document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+        document.getElementById("page-"+btn.dataset.page).style.display="block";
+        btn.classList.add("active");
+      });
+    });
+
+    // SYMPTOM CHECKER
+    const diseases={
+      "Diabetes":["Increased thirst","Frequent urination","Slow healing wounds","Blurred vision"],
+      "Hypertension":["Headache","Dizziness","High blood pressure"],
+      "Heart Disease":["Chest pain","Shortness of breath","Swelling in feet"],
+      "COPD":["Persistent cough","Breathlessness","Chest tightness"],
+      "CKD":["Swelling","Fatigue","Frequent urination at night"]
+    };
+    const allSymptoms=Array.from(new Set([].concat(...Object.values(diseases))));
+    const symDiv=document.getElementById("symptomsList");
+    allSymptoms.forEach(sym=>{
+      let chip=document.createElement("div");
+      chip.textContent=sym;chip.className="chip";
+      chip.onclick=()=>chip.classList.toggle("sel");
+      symDiv.appendChild(chip);
+    });
+    document.getElementById("checkSymptoms").onclick=()=>{
+      let selected=[...document.querySelectorAll(".chip.sel")].map(c=>c.textContent);
+      if(!selected.length){alert("Select at least one symptom");return;}
+      let results=[];
+      for(let [dis,symList] of Object.entries(diseases)){
+        let match=selected.filter(s=>symList.includes(s)).length;
+        if(match>0){let pct=Math.round((match/symList.length)*100);
+          results.push(dis+" — "+pct+"% match");}
+      }
+      let resDiv=document.getElementById("symResult");
+      resDiv.style.display="block";
+      resDiv.innerHTML=results.length? "<b>Possible conditions:</b><br>"+results.join("<br>"):"No matches found";
+    };
+    document.getElementById("clearSymptoms").onclick=()=>{
+      document.querySelectorAll(".chip.sel").forEach(c=>c.classList.remove("sel"));
+      document.getElementById("symResult").style.display="none";
+    };
+
+    // BMI
+    document.getElementById("calcBmi").onclick=()=>{
+      let h=document.getElementById("height").value;
+      let w=document.getElementById("weight").value;
+      if(!h||!w){alert("Enter both height and weight");return;}
+      h=h/100;let bmi=w/(h*h);
+      let cat=bmi<18.5?"Underweight":bmi<25?"Normal":bmi<30?"Overweight":"Obese";
+      document.getElementById("bmiResult").style.display="block";
+      document.getElementById("bmiResult").innerHTML="Your BMI: <b>"+bmi.toFixed(1)+"</b><br>Category: <b>"+cat+"</b>";
+    };
+    document.getElementById("clearBmi").onclick=()=>{
+      document.getElementById("height").value="";document.getElementById("weight").value="";
+      document.getElementById("bmiResult").style.display="none";
+    };
+
+    // SURVEY
+    const STORAGE_KEY="healthyhelper_survey";
+    function loadResponses(){return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");}
+    function saveResponses(arr){localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));}
+    document.getElementById("submitSurvey").onclick=()=>{
+      if(!document.getElementById("consent").checked){alert("Consent required");return;}
+      let rec={
+        time:new Date().toLocaleString(),
+        name:document.getElementById("name").value,
+        age:document.getElementById("age").value,
+        gender:document.getElementById("gender").value,
+        disease:document.getElementById("disease").value,
+        insurance:document.getElementById("insurance").value,
+        aware:document.getElementById("aware").value,
+        comments:document.getElementById("comments").value
+      };
+      let arr=loadResponses();arr.push(rec);saveResponses(arr);
+      document.getElementById("surveyMsg").style.display="block";
+      document.getElementById("surveyMsg").innerHTML="Response saved. Total: "+arr.length;
+    };
+    document.getElementById("viewSurvey").onclick=()=>{
+      let arr=loadResponses();let msg=document.getElementById("surveyMsg");
+      msg.style.display="block";
+      if(!arr.length){msg.innerHTML="No responses yet.";return;}
+      let html="<table><tr><th>Time</th><th>Name</th><th>Age</th><th>Gender</th><th>Disease</th><th>Insurance</th><th>Aware</th><th>Comments</th></tr>";
+      arr.forEach(r=>{
+        html+="<tr><td>"+r.time+"</td><td>"+r.name+"</td><td>"+r.age+"</td><td>"+r.gender+"</td><td>"+r.disease+"</td><td>"+r.insurance+"</td><td>"+r.aware+"</td><td>"+r.comments+"</td></tr>";
+      });
+      html+="</table>";msg.innerHTML=html;
+    };
+    document.getElementById("exportCsv").onclick=()=>{
+      let arr=loadResponses();if(!arr.length){alert("No data");return;}
+      let csv="Time,Name,Age,Gender,Disease,Insurance,Aware,Comments\n";
+      arr.forEach(r=>{
+        csv+=[r.time,r.name,r.age,r.gender,r.disease,r.insurance,r.aware,r.comments.replace(/,/g,";")].join(",")+"\n";
+      });
+      let blob=new Blob([csv],{type:"text/csv"});let url=URL.createObjectURL(blob);
+      let a=document.createElement("a");a.href=url;a.download="survey.csv";a.click();URL.revokeObjectURL(url);
+    };
+    document.getElementById("clearForm").onclick=()=>{
+      ["name","age","gender","disease","insurance","aware","comments"].forEach(id=>document.getElementById(id).value="");
+      document.getElementById("consent").checked=false;
+      document.getElementById("surveyMsg").style.display="none";
+    };
+  </script>
+</body>
+</html>
